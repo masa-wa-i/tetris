@@ -1,0 +1,11 @@
+@charset "UTF-8";
+.btn1 {
+  display: inline-block;
+  padding: 10px 20px 10px 20px;
+  text-decoration: none;
+  color: white;
+  background: rgb(35, 37, 128);
+  font-weight: bold;
+  border: solid 4px rgb(0, 0, 0);
+  border-radius: 8px;
+}
