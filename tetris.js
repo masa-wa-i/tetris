@@ -136,41 +136,37 @@ var zz = setInterval(function () {
       e = [e[0] + 1, e[1]];
       f = [f[0] + 1, f[1]];
       g = [g[0] + 1, g[1]];
-      stop_flag = 1;
+      stop_flag = 0;
     } else {
-      if (i == 1) {
+      stop_flag += 1;
+      if (stop_flag >= 20) {
         stop_flag = 0;
-        i = 0;
-        console.log("a");
-        setTimeout(function () {
-          if (stop_flag == 0) {
-            hold_flag = 0;
-            tetris[d[0]][d[1]] = h;
-            tetris[e[0]][e[1]] = h;
-            tetris[f[0]][f[1]] = h;
-            tetris[g[0]][g[1]] = h;
-            for (j = 0; j <= 19; j++) {
-              var delete_flag = true;
-              for (k = 0; k <= 9; k++) {
-                if (
-                  tetris[j][k + 1] == 0 ||
-                  tetris[j][k + 1] == 8 ||
-                  tetris[j][k + 1] == 9
-                ) {
-                  delete_flag = false;
-                }
-              }
-              if (delete_flag == true) {
-                tetris.splice(j, 1);
-                tetris.unshift([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]);
-                line += 1;
-                score += 1000;
-                delete_flag = false;
-              }
+
+        tetris[d[0]][d[1]] = h;
+        tetris[e[0]][e[1]] = h;
+        tetris[f[0]][f[1]] = h;
+        tetris[g[0]][g[1]] = h;
+        for (j = 0; j <= 19; j++) {
+          var delete_flag = true;
+          for (k = 0; k <= 9; k++) {
+            if (
+              tetris[j][k + 1] == 0 ||
+              tetris[j][k + 1] == 8 ||
+              tetris[j][k + 1] == 9
+            ) {
+              delete_flag = false;
             }
-            mino = true;
           }
-        }, 1000);
+          if (delete_flag == true) {
+            tetris.splice(j, 1);
+            tetris.unshift([9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9]);
+            line += 1;
+            score += 1000;
+            delete_flag = false;
+          }
+        }
+        mino = true;
+        hold_flag = 0;
       }
     }
   }
@@ -216,6 +212,8 @@ var zz = setInterval(function () {
         if (!z) z = window.event;
         if (z.key == "h") {
           if (hold_flag == 0) {
+            stop_flag = 0;
+            hold_flag = 1;
             if (hold == -1) {
               hold = h;
               mino = true;
@@ -228,8 +226,6 @@ var zz = setInterval(function () {
             tetris[e[0]][e[1]] = 0;
             tetris[f[0]][f[1]] = 0;
             tetris[g[0]][g[1]] = 0;
-            stop_flag = 1;
-            hold_flag = 1;
           }
         }
         if (z.key == "l") {
